@@ -30,12 +30,3 @@ class Idle(Action_State):
     def sleep(self):
         print("no access")
         return False
-
-
-
-
-
-
-
-
-
