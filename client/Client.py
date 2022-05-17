@@ -17,7 +17,7 @@ class client:
             return False
 
     @staticmethod
-    def connect_socket(self):
+    def connect_socket():
         global socket_client
         host_ip = socket.gethostname()
         port = 5678
@@ -31,8 +31,8 @@ class client:
                 msg = pickle.dumps(mess_dict)
                 msg = bytes(f"{len(msg):<{10}}", 'utf-8') + msg
                 socket_client.send(msg)
-            except:
-                continue
+            except Exception as err:
+                print(err)
 
     def user_choice(self):
         print("""
@@ -53,29 +53,32 @@ class client:
                     else:
                         print("wrong password")
                         continue
-                self.mess.create_msg(choice, username, password)
+                mess.create_msg(choice, username, password)
                 mess_dict = mess.convert_dict()
-                self.mess.send_msg(mess_dict)
-            except:
-                print(" password wrong or user does not exist")
+                mess.send_msg(mess_dict)
+            except Exception as err:
+                print(err)
         elif choice == '2':
             while True:
                 print("____Login____")
                 username = input("Enter username: ")
                 password = input("\n Enter password: ")
-                self.mess.create_msg(choice, username, password)
-                mess_dict = self.mess.convert_dict()
+                mess.create_msg(choice, username, password)
+                mess_dict = mess.convert_dict()
                 self.send_msg(mess_dict)
         elif choice == '3':
             while True:
                 print("____Echo____")
                 echo = input("Echo: ")
                 self.create_echo_msg(choice, echo)
-                msg_dict = self.mess.convert_dict()
+                msg_dict = mess.convert_dict()
                 self.send_msg(msg_dict)
         else:
             print("Exit")
             exit()
+
+    def create_echo_msg(self, choice, echo):
+        pass
 
 
 if __name__ == "__main__":
