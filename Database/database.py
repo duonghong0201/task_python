@@ -30,7 +30,7 @@ def check_login(username, password):
     query = "SELECT * FROM tables WHERE username = %s and password = %s"
     cursor.execute(query, [username, password])
     result = cursor.fetchall()
-    if result == True:
+    if result:
         print("Logged in successfully")
     else:
         print("wrong password or username does not exist")
