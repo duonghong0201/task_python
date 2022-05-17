@@ -4,15 +4,19 @@ import pickle
 import time
 import socket
 
+global socket_client
+
 
 class client:
-    def check_password(self, password):
+    @staticmethod
+    def check_password(password):
         pattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).*$"
         if re.findall(pattern, password):
             return True
         else:
             return False
 
+    @staticmethod
     def connect_socket(self):
         global socket_client
         host_ip = socket.gethostname()
@@ -29,6 +33,7 @@ class client:
                 socket_client.send(msg)
             except:
                 continue
+
     def user_choice(self):
         print("""
                  1: Register
@@ -49,8 +54,8 @@ class client:
                         print("wrong password")
                         continue
                 self.mess.create_msg(choice, username, password)
-                mess_dict = self.mess.convert_dict()
-                self.send_msg(mess_dict)
+                mess_dict = mess.convert_dict()
+                self.mess.send_msg(mess_dict)
             except:
                 print(" password wrong or user does not exist")
         elif choice == '2':
@@ -75,5 +80,5 @@ class client:
 
 if __name__ == "__main__":
     Client = client()
-    #Client.send_msg('hong')
+    # Client.send_msg('hong')
     Client.user_choice()
